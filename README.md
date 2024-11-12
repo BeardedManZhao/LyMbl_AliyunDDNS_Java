@@ -1,6 +1,6 @@
 # LyMbl_AliyunDDNS_Java
 
-aliyun 服务器的 DDNS Java 软件，可以实现自动获取 ipv4 和 ipv6 公网 然后在阿里云进行 ddns 操作！
+aliyun DNS 解析的 DDNS Java 软件，可以实现自动获取 ipv4 和 ipv6 公网 然后在阿里云进行 ddns 操作！
 
 ## 启动方法
 
@@ -70,7 +70,7 @@ Use `aliyun --help` for more information.
 从仓库中下载好您需要的 jar 包之后，使用下面的命令启动即可！
 
 ```shell
-java -jar ./LyMbl_AliyunDDNS_Java.jar [日志目录] [动态更新DNS间隔(ms)] [需要被动态更新的子域名(如 www)] [需要被动态更新的顶级域名(如 lingyuzhao.top)]
+java -jar ./LyMbl_AliyunDDNS_Java.jar [日志目录] [动态更新DNS间隔(ms) 不要太短，会导致性能浪费] [需要被动态更新的子域名(如 www)] [需要被动态更新的顶级域名(如 lingyuzhao.top)]
 ```
 
 ## 启动示例
