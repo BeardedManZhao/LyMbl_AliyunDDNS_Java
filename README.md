@@ -65,6 +65,10 @@ Use `aliyun --help` for more information.
 
 ```
 
+### 在阿里云的DNS解析创建您要解析的子域 DNS
+
+这里我们可以直接前往 [阿里云 DNS 解析](https://wanwang.aliyun.com/domain/dns) 网页中进行 DNS 解析操作，在其中创建出 `A` 或者 `AAAA` 记录，并指向您的服务器 IP 地址（若您没有 ipv6 可以不指定 AAAA 解析类型）
+
 ### 启动 jar 程序
 
 从仓库中下载好您需要的 jar 包之后，使用下面的命令启动即可！
