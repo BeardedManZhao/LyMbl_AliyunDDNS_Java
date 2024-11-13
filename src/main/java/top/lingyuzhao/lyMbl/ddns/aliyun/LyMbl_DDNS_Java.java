@@ -14,7 +14,7 @@ public class LyMbl_DDNS_Java {
         logger.setLevel(Level.INFO);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length < 4) {
             logger.warning("请输入参数：【logDir】【更新时间间隔（MS）】【RR参数：代表子域名字，如 www】【顶级域名：如 lingyuzhao.top】");
             return;
@@ -39,10 +39,11 @@ public class LyMbl_DDNS_Java {
             throw new RuntimeException(e);
         }
         fileHandler.setLevel(Level.INFO);
+        fileHandler.setFormatter(new LoggerFormatter());
         logger.addHandler(fileHandler);
 
-        try (DDNSManager ddnsManager = new DDNSManager(logger, domain, RR)) {
-            ddnsManager.start(updateTimeMS);
+        try (AliYunDDnsManager dDnsManager = new AliYunDDnsManager(logger, domain, RR)) {
+            dDnsManager.start(updateTimeMS);
         }
     }
 }

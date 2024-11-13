@@ -12,7 +12,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class DDNSManager implements AutoCloseable {
+/**
+ * 阿里云的 DDNS 管理器 其可以实现域名解析，支持 AAAA 和 A 类型
+ *
+ * @author lingyuzhao
+ */
+public class AliYunDDnsManager implements DDnsManager {
 
     private final Logger logger;
     private final String domain;
@@ -20,7 +25,14 @@ public class DDNSManager implements AutoCloseable {
     private final ExecutorService executorService;
     private String backIpv4, backIpv6, ipv4DnsId, ipv6DnsId;
 
-    public DDNSManager(Logger logger, String domain, String RR) {
+    /**
+     * 构造函数
+     *
+     * @param logger 日志对象
+     * @param domain 域名
+     * @param RR     被操作的子域名
+     */
+    public AliYunDDnsManager(Logger logger, String domain, String RR) {
         this.logger = logger;
         this.domain = domain;
         this.RR = RR;
@@ -28,8 +40,15 @@ public class DDNSManager implements AutoCloseable {
         initIp();
     }
 
+    @Override
+    public String getManagerName() {
+        return "AliYunDDnsManager";
+    }
+
+    @Override
     public void start(long updateTimeMS) {
         logger.info("DDNS running updateTimeMS=" + updateTimeMS);
+        logger.info(this.getLogo());
         while (true) {
             try {
                 updateIPs();
@@ -44,7 +63,7 @@ public class DDNSManager implements AutoCloseable {
         }
     }
 
-    private void initIp() {
+    public void initIp() {
         try {
             final Process exec = Runtime.getRuntime().exec("aliyun alidns DescribeDomainRecords --DomainName " + domain);
             try (final InputStream inputStream = exec.getInputStream()) {
@@ -74,7 +93,7 @@ public class DDNSManager implements AutoCloseable {
         }
     }
 
-    private void updateIPs() throws Exception {
+    public void updateIPs() throws Exception {
         // 获取公网 IPV4
         final String publicIpv4Address = PublicIpFetcher.getPublicIpv4Address();
         updateIp(RR, "A", ipv4DnsId, publicIpv4Address);
@@ -88,7 +107,7 @@ public class DDNSManager implements AutoCloseable {
         }
     }
 
-    private void updateIp(String RR, String type, String recordId, String ip) throws Exception {
+    public void updateIp(String RR, String type, String recordId, String ip) throws Exception {
         switch (type) {
             case "A":
                 if (ip.equals(backIpv4)) {
