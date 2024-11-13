@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f9a3c42d-3872-4032-be48-947c6fae72e3)
+![图片1](https://github.com/user-attachments/assets/a72c4694-9725-42ed-bd44-abcd09939d64)
 
 # LyMbl_AliyunDDNS_Java
 
