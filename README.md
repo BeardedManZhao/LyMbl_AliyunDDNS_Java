@@ -69,9 +69,11 @@ Use `aliyun --help` for more information.
 
 ### 在阿里云的DNS解析创建您要解析的子域 DNS
 
-这里我们可以直接前往 [阿里云 DNS 解析](https://wanwang.aliyun.com/domain/dns) 网页中进行 DNS 解析操作，在其中创建出 `A` 或者 `AAAA` 记录，并指向您的服务器 IP 地址（若您没有 ipv6 可以不指定 AAAA 解析类型）
+这里我们可以直接前往 [阿里云 DNS 解析](https://wanwang.aliyun.com/domain/dns) 网页中进行 DNS 解析操作，在其中创建出 `A`
+或者 `AAAA` 记录，并指向您的服务器 IP 地址（若您没有 ipv6 可以不指定 AAAA 解析类型）
 
-IP地址的位置可以写服务器当前的 IP 地址，但是也可以写错误的，DDNS 程序会自动的将您的 IP 地址进行更改！只要新增了 DNS 解析记录就可以了
+IP地址的位置可以写服务器当前的 IP 地址，但是也可以写错误的，DDNS 程序会自动的将您的 IP 地址进行更改！只要新增了 DNS
+解析记录就可以了
 
 ## 做为软件使用的 启动方法
 
@@ -147,11 +149,12 @@ root@gust-desktop:/opt/app/LyMbl_DDNS_Java# java -jar ./LyMbl_AliyunDDNS_Java.ja
 ### 添加依赖
 
 ```xml
-        <dependency>
-            <groupId>io.github.BeardedManZhao</groupId>
-            <artifactId>LyMbl_AliyunDDNS_Java</artifactId>
-            <version>2024.11.13</version>
-        </dependency>
+
+<dependency>
+    <groupId>io.github.BeardedManZhao</groupId>
+    <artifactId>LyMbl_AliyunDDNS_Java</artifactId>
+    <version>2024.11.24</version>
+</dependency>
 ```
 
 ### maven 组件包中的 main 函数调用
@@ -201,3 +204,9 @@ public class Main {
     }
 }
 ```
+
+# 更新日志
+
+## 2024-11-24
+
+- 优化了域名解析操作中，日志的打印逻辑！！

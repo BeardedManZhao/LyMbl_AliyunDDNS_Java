@@ -29,8 +29,8 @@ public class LyMbl_DDNS_Java {
         FileHandler fileHandler;
         try {
             final File file = new File(logDir);
-            if (!file.exists()){
-                if (file.mkdirs()){
+            if (!file.exists()) {
+                if (file.mkdirs()) {
                     logger.info("创建日志目录成功！");
                 }
             }

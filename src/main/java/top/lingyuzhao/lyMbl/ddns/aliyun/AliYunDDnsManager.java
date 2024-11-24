@@ -68,25 +68,29 @@ public class AliYunDDnsManager implements DDnsManager {
             final Process exec = Runtime.getRuntime().exec("aliyun alidns DescribeDomainRecords --DomainName " + domain);
             try (final InputStream inputStream = exec.getInputStream()) {
                 final JSONObject jsonObject = JSONObject.parseObject(IOUtils.getStringByStream(inputStream));
-                jsonObject.getJSONObject("DomainRecords").getJSONArray("Record").forEach(o -> {
-                    if (o instanceof JSONObject && RR.equals(((JSONObject) o).getString("RR"))) {
-                        final JSONObject o1 = (JSONObject) o;
-                        final String value = o1.getString("Value");
-                        logger.info("RR: " + RR + " value: " + value);
-                        switch (o1.getString("Type")) {
-                            case "A":
-                                backIpv4 = value;
-                                ipv4DnsId = o1.getString("RecordId");
-                                logger.info("初始化 ipv4: " + backIpv4);
-                                break;
-                            case "AAAA":
-                                backIpv6 = value;
-                                ipv6DnsId = o1.getString("RecordId");
-                                logger.info("初始化 ipv6: " + backIpv6);
-                                break;
+                try {
+                    jsonObject.getJSONObject("DomainRecords").getJSONArray("Record").forEach(o -> {
+                        if (o instanceof JSONObject && RR.equals(((JSONObject) o).getString("RR"))) {
+                            final JSONObject o1 = (JSONObject) o;
+                            final String value = o1.getString("Value");
+                            logger.info("RR: " + RR + " value: " + value);
+                            switch (o1.getString("Type")) {
+                                case "A":
+                                    backIpv4 = value;
+                                    ipv4DnsId = o1.getString("RecordId");
+                                    logger.info("初始化 ipv4: " + backIpv4);
+                                    break;
+                                case "AAAA":
+                                    backIpv6 = value;
+                                    ipv6DnsId = o1.getString("RecordId");
+                                    logger.info("初始化 ipv6: " + backIpv6);
+                                    break;
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (NullPointerException e) {
+                    throw new RuntimeException("解析数据失败！", e);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("初始化失败！", e);
@@ -140,7 +144,7 @@ public class AliYunDDnsManager implements DDnsManager {
                 }
                 logger.info("DDNS exec result: " + output);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.warning("DDNS 执行结果读取 错误，执行结果未知，您可以查看相关错误信息: " + e);
             }
         });
 
@@ -157,7 +161,7 @@ public class AliYunDDnsManager implements DDnsManager {
                     logger.warning("DDNS exec error: " + errorOutput);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.warning("DDNS 执行结果读取 错误，本次执行失败了，您可以查看相关错误信息: " + e);
             }
         });
 

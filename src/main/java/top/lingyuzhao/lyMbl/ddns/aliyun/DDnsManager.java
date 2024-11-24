@@ -105,6 +105,7 @@ public interface DDnsManager extends AutoCloseable {
 
     /**
      * D DNS 启动函数
+     *
      * @param updateTimeMS 更新时间间隔（MS）
      */
     void start(long updateTimeMS);
