@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.BeardedManZhao</groupId>
     <artifactId>LyMbl_AliyunDDNS_Java</artifactId>
-    <version>2024.11.13</version>
+    <version>2024.11.24</version>
     <packaging>jar</packaging>
     <name>LyMbl_AliyunDDNS_Java</name>
     <description>LyMbl_AliyunDDNS_Java-java</description>
